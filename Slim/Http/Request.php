@@ -290,7 +290,14 @@ class Slim_Http_Request {
      * @return bool
      */
     public function wantsHtml() {
-      return $this->getContentType() == 'application/x-www-form-urlencoded' || strpos($this->getContentType(), 'text/html') > -1;
+      return
+	( !array_key_exists('HTTP_ACCEPT', $_SERVER) ||
+	  strpos($_SERVER['HTTP_ACCEPT'], 'html') > -1
+	)
+	&&
+	( $this->getContentType() == 'application/x-www-form-urlencoded'
+	  || strpos($this->getContentType(), 'text/html') > -1
+	);
     }
 
     /**
@@ -298,7 +305,9 @@ class Slim_Http_Request {
      * @return bool
      */
     public function wantsJson() {
-      return $this->getContentType() == 'application/json';
+      return
+	strpos($_SERVER['HTTP_ACCEPT'], 'application/json') > -1 ||
+	$this->getContentType() == 'application/json';
     }
 
     /**

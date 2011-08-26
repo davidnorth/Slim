@@ -328,10 +328,16 @@ class RequestTest extends PHPUnit_Framework_TestCase {
       unset($_SERVER['CONTENT_TYPE']);
       $r1 = new Slim_Http_Request();
       $this->assertFalse($r1->wantsJson());
-      //Case A
+      //Case a
       $_SERVER['CONTENT_TYPE'] = 'application/json';
       $r2 = new Slim_Http_Request();
       $this->assertTrue($r2->wantsJson());
+      //Case C, with Accept header as used by jQuery
+      unset($_SERVER['CONTENT_TYPE']);
+      $_SERVER['HTTP_ACCEPT'] = 'application/json, text/javascript, */*; q=0.01';
+      $r3 = new Slim_Http_Request();
+      $this->assertTrue($r3->wantsJson());
+      // $this->assertFalse($r3->wantsHtml());
     }
 
 
