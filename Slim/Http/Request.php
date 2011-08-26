@@ -286,6 +286,22 @@ class Slim_Http_Request {
     }
 
     /**
+     * Is request for a HTML content type?
+     * @return bool
+     */
+    public function wantsHtml() {
+      return $this->getContentType() == 'application/x-www-form-urlencoded' || strpos($this->getContentType(), 'text/html') > -1;
+    }
+
+    /**
+     * Is request for json content type?
+     * @return bool
+     */
+    public function wantsJson() {
+      return $this->getContentType() == 'application/json';
+    }
+
+    /**
      * Get HTTP request resource URI
      * @return string
      */
