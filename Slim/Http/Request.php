@@ -270,6 +270,14 @@ class Slim_Http_Request {
     }
 
     /**
+     * Get HTTP request body
+     * @return string|false String, or FALSE if body could not be read
+     */
+    public function setBody($string) {
+        $this->body = $string;
+    }
+
+    /**
      * Get HTTP method
      * @return string
      */
