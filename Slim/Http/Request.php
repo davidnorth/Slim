@@ -336,6 +336,21 @@ class Slim_Http_Request {
     }
 
     /**
+     * Get the requested format by URI extension
+     * Or 'html ' if there is no extension
+     * @return string
+     */
+    public function getFormat() {
+      $matches = array();
+      preg_match("/\.([^\.]+)$/", $this->resource, $matches);
+      if(count($matches) == 2) {
+        return $matches[1];
+      } else {
+        return 'html';
+      }
+    }
+
+    /**
      * Get HTTP request root URI
      * @return string
      */
